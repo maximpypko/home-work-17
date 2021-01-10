@@ -49,13 +49,14 @@ class List {
   }
 }
 
-const list = new List('list')
+const list = new List('list');
+list.getLocalStorageContent();
 
 list.add('Какая-то запись', 14);
 list.add('Какая-то запись чтобы не забыть', 12);
-list.update('Поменял на эту запись', 14)
-list.delete(12)
-console.log(list)
+list.update('Поменял на эту запись', 14);
+list.delete(12);
+console.log(list);
 
 
 ////////////////////////////////////////////////////////////
@@ -150,7 +151,7 @@ newContactList.add('Ivan', 'Ivanov', 'Malinovskogo str. 123', '234-444-55-55', 1
 newContactList.add('Nikolay', 'Sidorov', 'Malinovskogo str. 123', '123-23-34-45', 2);
 newContactList.add('Anna', 'Petrova', 'Malinovskogo str. 123', '098-234-76-33', 3);
 
-newContactList.update(3, '050-123-45-67')
+newContactList.update(3, '050-123-45-67');
 
 console.log(newContactList.getContact('Anna', 'Petrova'));
 

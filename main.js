@@ -1,12 +1,17 @@
 class List {
-  #archive = []
+  archive = []
   name = ''
   constructor(name) {
     this.name = name;
   }
 
   //метод добавления 
-  add() {
+  add(text, id) {
+    const newRecord = {
+      id: id,
+      text: text,
+    }
+    this.archive.push(newRecord);
     this.recordInLocalStorage()
   }
 
@@ -18,9 +23,11 @@ class List {
   }
 
   //метод редактирования
-  update() { 
+  update(text, id) { 
+    const index = this.getId(id);
+    this.archive[index].text = text;
     this.recordInLocalStorage();
-}
+  }
   
   //метод нахождения элемента
   getId(id) {
@@ -40,15 +47,16 @@ class List {
     } 
     return this.archive;
   }
-
-  set archive(archiveFromLS) {
-    return this.#archive = archiveFromLS;
-  } 
-
-  get archive() {
-    return this.#archive;
-  } 
 }
+
+const list = new List('list')
+
+list.add('Какая-то запись', 14);
+list.add('Какая-то запись чтобы не забыть', 12);
+list.update('Поменял на эту запись', 14)
+list.delete(12)
+console.log(list)
+
 
 ////////////////////////////////////////////////////////////
 class TodoList extends List {
@@ -64,15 +72,8 @@ class TodoList extends List {
         id: id,
     }
     this.archive.push(newTask);
-    super.add();
+    this.recordInLocalStorage();
   }
-
-  //наследуемый метод редактирования
-  update(id, text) {
-    const index = this.getId(id);
-    this.archive[index].text = text;
-    super.update();
-  } 
 
   //помечает заметки как выполненные
   isComplitte(id) {
@@ -97,7 +98,7 @@ newTodoList.add('Посадить почки', 5);
 newTodoList.add('Посадить траву', 6);
 newTodoList.add('Посадить дерево', 7);
 
-newTodoList.update(6, 'Сходить в магазин')
+newTodoList.update('Сходить в магазин', 6)
 
 newTodoList.isComplitte(6);
 
@@ -126,16 +127,16 @@ class ContactList extends List {
       id: id,
     }
     this.archive.push(newContact);
-    super.add();
+    this.recordInLocalStorage();
   }
 
   //наследуемый метод редактирования
   update(id, phone) {
     const index = this.getId(id);
     this.archive[index].phone = phone;
-    super.update();
+    this.recordInLocalStorage();
   } 
-
+  
   //метод для поиска контакта
   getContact(name, surname) {
     return this.archive.find((item) => item.name === name && item.surname === surname);

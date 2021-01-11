@@ -3,15 +3,12 @@ class List {
   name = ''
   constructor(name) {
     this.name = name;
+    this.getLocalStorageContent();
   }
 
   //метод добавления 
-  add(text, id) {
-    const newRecord = {
-      id: id,
-      text: text,
-    }
-    this.archive.push(newRecord);
+  add(value) {
+    this.archive.push(value);
     this.recordInLocalStorage()
   }
 
@@ -23,9 +20,9 @@ class List {
   }
 
   //метод редактирования
-  update(text, id) { 
+  update(value, id) { 
     const index = this.getId(id);
-    this.archive[index].text = text;
+    this.archive[index] = value;
     this.recordInLocalStorage();
   }
   
@@ -50,13 +47,12 @@ class List {
 }
 
 const list = new List('list');
-list.getLocalStorageContent();
 
-list.add('Какая-то запись', 14);
-list.add('Какая-то запись чтобы не забыть', 12);
-list.update('Поменял на эту запись', 14);
-list.delete(12);
-console.log(list);
+// list.add('Какая-то запись', 14);
+// list.add('Какая-то запись чтобы не забыть', 12);
+// list.update('Поменял на эту запись', 14);
+// list.delete(12);
+// console.log(list);
 
 
 ////////////////////////////////////////////////////////////
@@ -83,6 +79,13 @@ class TodoList extends List {
     this.recordInLocalStorage();
   }
 
+  //наследуемый класс для изменения заметок
+  update(text, id) { 
+    const index = this.getId(id);
+    this.archive[index].text = text;
+    this.recordInLocalStorage();
+  }
+
   //показывает сколько заметок и сколько заметок выполненно
   getStatistic() {
     const numberOfNotes = this.archive.length;
@@ -93,19 +96,18 @@ class TodoList extends List {
 }
 
 const newTodoList = new TodoList('New todo list');
-newTodoList.getLocalStorageContent();
 
-newTodoList.add('Посадить почки', 5);
-newTodoList.add('Посадить траву', 6);
-newTodoList.add('Посадить дерево', 7);
+// newTodoList.add('Посадить почки', 5);
+// newTodoList.add('Посадить траву', 6);
+// newTodoList.add('Посадить дерево', 7);
 
-newTodoList.update('Сходить в магазин', 6)
+// newTodoList.update('Сходить в магазин', 6)
 
-newTodoList.isComplitte(6);
+// newTodoList.isComplitte(6);
 
-console.log(newTodoList.getStatistic());
+// console.log(newTodoList.getStatistic());
 
-newTodoList.delete(5);
+// newTodoList.delete(5);
 
 console.log(newTodoList);
 
@@ -145,16 +147,15 @@ class ContactList extends List {
 }
 
 const newContactList = new ContactList('New contact list');
-newContactList.getLocalStorageContent();
 
-newContactList.add('Ivan', 'Ivanov', 'Malinovskogo str. 123', '234-444-55-55', 1);
-newContactList.add('Nikolay', 'Sidorov', 'Malinovskogo str. 123', '123-23-34-45', 2);
-newContactList.add('Anna', 'Petrova', 'Malinovskogo str. 123', '098-234-76-33', 3);
+// newContactList.add('Ivan', 'Ivanov', 'Malinovskogo str. 123', '234-444-55-55', 1);
+// newContactList.add('Nikolay', 'Sidorov', 'Malinovskogo str. 123', '123-23-34-45', 2);
+// newContactList.add('Anna', 'Petrova', 'Malinovskogo str. 123', '098-234-76-33', 3);
 
-newContactList.update(3, '050-123-45-67');
+// newContactList.update(3, '050-123-45-67');
 
-console.log(newContactList.getContact('Anna', 'Petrova'));
+// console.log(newContactList.getContact('Anna', 'Petrova'));
 
-newContactList.delete(2);
+// newContactList.delete(2);
 
 console.log(newContactList);
